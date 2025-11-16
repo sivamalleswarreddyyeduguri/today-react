@@ -1,0 +1,114 @@
+.clickable-row {
+  cursor: pointer;
+}
+.expanded-row .inline-details {
+  background: #0f1420; /* match dark theme */
+  border: 1px solid rgba(148, 163, 184, 0.25);
+  border-radius: 10px;
+  padding: 12px;
+  color: #e5eaf3;
+}
+.expanded-row {
+  transition: height .2s ease;
+}
+
+.expanded-row .inline-detailschar {
+  max-height: 250px; /* adjust as needed */
+  overflow-y: auto;
+  background: #0f1420; /* match dark theme */
+  border: 1px solid rgba(148, 163, 184, 0.25);
+  border-radius: 10px;
+  padding: 12px;
+  color: #e5eaf3;
+}
+
+.search-form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  padding: 20px;
+}
+
+.search-title {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.form-row {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-row label {
+  font-weight: 500;
+  margin-bottom: 5px;
+}
+
+.form-row input,
+.form-row select {
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.search-button {
+  background-color: #007bff;
+  color: white;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.cancel-button {
+  background-color: #6c757d;
+  color: white;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+
+
+.table-scroll-both {
+  width: 100%;
+  max-height: 60vh;      /* Vertical limit so body scrolls */
+  overflow: auto;        /* Scroll in both directions if needed */
+  background: transparent;
+}
+
+.entity-table {
+  width: 100%;
+  min-width: 1100px;     /* Tune for your column set */
+  table-layout: fixed;
+  border-collapse: collapse;
+}
+
+/* Sticky header in dark theme */
+.entity-table thead th {
+  position: sticky;
+  top: 0;
+  background: #0f1420;
+  z-index: 1;
+  border-bottom: 1px solid rgba(148, 163, 184, 0.35);
+  color: #e5eaf3;
+}
+
+/* Same cell rules as Option A */
+.entity-table th,
+.entity-table td {
+  padding: 8px 12px;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  border-bottom: 1px solid rgba(148, 163, 184, 0.25);
+  color: #e5eaf3;
+}

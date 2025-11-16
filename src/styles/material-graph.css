@@ -1,0 +1,163 @@
+/* ---- Base styles from earlier remain the same. Only the relevant blocks are shown in full. ---- */
+
+.mg-root {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 16px;
+  box-sizing: border-box;
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+  color: #111827;
+}
+
+.mg-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+.mg-title { font-size: 20px; font-weight: 600; margin: 0 0 4px; }
+.mg-subtitle { font-size: 13px; color: #4b5563; margin: 0; }
+.mg-subtitle-strong { font-weight: 500; }
+.mg-close-btn {
+  padding: 8px 12px; font-size: 13px; border-radius: 6px;
+  background: #e5e7eb; color: #374151; border: 1px solid #d1d5db; cursor: pointer;
+}
+.mg-close-btn:hover { background: #d1d5db; }
+.mg-info { padding: 12px; color: #4b5563; }
+.mg-error { padding: 12px; color: #dc2626; }
+
+.mg-content {
+  display: grid;
+  grid-template-columns: 1fr 1.4fr;
+  gap: 24px;
+  align-items: start;
+}
+@media (max-width: 900px) { .mg-content { grid-template-columns: 1fr; } }
+
+.mg-card-title { font-weight: 700; text-align: center; margin-bottom: 12px; }
+
+/* PIE */
+.mg-pie-card {
+  background: #fff; border: 1px solid #e5e7eb; border-radius: 8px; padding: 16px;
+}
+.mg-pie-wrapper {
+  position: relative; /* for tooltip positioning */
+  display: flex; gap: 16px; align-items: center; justify-content: center;
+}
+.mg-pie {
+  --passColor: #22c55e;
+  --failColor: #ef4444;
+  --pass: 60%;
+  --fail: 40%;
+  width: 220px; height: 220px; border-radius: 50%;
+  background: conic-gradient(
+    var(--passColor) 0% var(--pass),
+    var(--failColor) var(--pass) calc(var(--pass) + var(--fail))
+  );
+  box-shadow: 0 0 0 1px #e5e7eb inset;
+  cursor: crosshair;
+}
+.mg-pie-legend { display: flex; flex-direction: column; gap: 8px; font-size: 14px; }
+.mg-legend-row { display: flex; align-items: center; gap: 8px; }
+.mg-dot { width: 12px; height: 12px; border-radius: 999px; display: inline-block; }
+.mg-legend-pct { margin-left: auto; font-weight: 600; }
+
+/* Tooltip inside pie */
+.mg-pie-tooltip {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  display: inline-flex; flex-direction: column; align-items: center; gap: 2px;
+  font-weight: 800; font-size: 14px; color: #fff;
+  padding: 6px 8px; border-radius: 6px; white-space: nowrap;
+  background: rgba(0,0,0,0.35);
+  backdrop-filter: saturate(150%) blur(2px);
+  text-shadow: 0 1px 1px rgba(0,0,0,0.35);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+}
+.mg-pie-tooltip-pct { font-size: 16px; line-height: 1; }
+.mg-pie-tooltip-pass { outline: 2px solid #22c55e; }
+.mg-pie-tooltip-fail { outline: 2px solid #ef4444; }
+
+/* BARS */
+.mg-bars-card {
+  background: #fff; border: 1px solid #e5e7eb; border-radius: 8px; padding: 16px;
+}
+.mg-bars { display: flex; flex-direction: column; gap: 14px; }
+.mg-row {
+  display: grid; grid-template-columns: 220px 1fr; gap: 12px; align-items: center;
+}
+@media (max-width: 640px) { .mg-row { grid-template-columns: 1fr; } }
+.mg-row-label { font-size: 14px; color: #111827; }
+
+.mg-bar-wrap {
+  position: relative; height: 34px; border-radius: 6px; overflow: hidden;
+  box-shadow: 0 0 0 1px #e5e7eb inset;
+}
+.mg-bar-bg { position: absolute; inset: 0; z-index: 1; }
+
+/* Subtle vertical grid ticks (equal spacing) */
+.mg-gridlines {
+  position: absolute; inset: 0; pointer-events: none; z-index: 4;
+  --gridCount: 5;
+  background-image: linear-gradient(to right, rgba(255,255,255,0.55) 1px, transparent 1px);
+  background-size: calc(100% / var(--gridCount)) 100%;
+  background-repeat: repeat-x;
+  mix-blend-mode: overlay;
+}
+
+/* Horizontal midline */
+.mg-midline {
+  position: absolute; top: 50%; left: 0; right: 0; height: 1px;
+  background: rgba(255,255,255,0.55); z-index: 4; mix-blend-mode: overlay;
+}
+
+/* SPEC band & actual band */
+.mg-spec-band {
+  position: absolute; top: 0; height: 100%; opacity: 0.55; pointer-events: none; z-index: 2;
+}
+.mg-actual-band {
+  position: absolute; top: 0; height: 100%;
+  background: rgba(17, 24, 39, 0.25); pointer-events: none; z-index: 3;
+}
+
+/* Origin axis at the very left */
+.mg-axis-origin {
+  position: absolute; left: 0; top: 0; height: 100%; width: 2px;
+  background: #111827; opacity: 0.6; z-index: 6;
+}
+
+/* === SPEC exact ticks & labels === */
+.mg-spec-tick {
+  position: absolute;
+  top: -2px; bottom: -2px; /* slightly extend beyond the bar height */
+  width: 2px;
+  background: #111827; /* dark tick like in your screenshot */
+  opacity: 0.9;
+  z-index: 7;
+}
+.mg-spec-tick-mid {
+  width: 1px;
+  background: #111827;
+  opacity: 0.5; /* a little lighter for the midpoint */
+}
+
+.mg-spec-label {
+  position: absolute;
+  top: -18px; /* above the bar */
+  transform: translateX(-50%);
+  font-size: 11px;
+  font-weight: 600;
+  color: #111827;
+  text-shadow: 0 1px 0 rgba(255,255,255,0.6);
+  pointer-events: none;
+  z-index: 8;
+}
+
+/* Text over the bar */
+.mg-bar-text {
+  position: absolute; inset: 0; display: flex; align-items: center;
+  padding: 0 10px; font-size: 13px; font-weight: 600; color: #fff;
+  text-shadow: 0 1px 1px rgba(0,0,0,0.25); z-index: 9;
+}

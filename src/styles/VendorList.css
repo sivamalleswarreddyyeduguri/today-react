@@ -1,0 +1,78 @@
+.vendor-list-container {
+  padding: 20px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f4f7fa;
+}
+
+.vendor-list-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #1976d2;
+  padding: 10px 20px;
+  color: white;
+  border-radius: 5px;
+}
+
+.vendor-list-nav button {
+  background-color: white;
+  color: #1976d2;
+  border: none;
+  padding: 8px 12px;
+  margin-left: 10px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.vendor-list-nav .back-btn {
+  background-color: white;
+  color: #1976d2;
+}
+
+.vendor-list-nav .nav-right {
+  display: flex;
+  gap: 10px;
+}
+
+h2 {
+  margin-top: 20px;
+  color: #333;
+}
+
+.vendor-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+  background-color: white;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.vendor-table th,
+.vendor-table td {
+  padding: 12px 15px;
+  border: 1px solid #ddd;
+  text-align: left;
+}
+
+.vendor-table th {
+  background-color: #1976d2;
+  color: white;
+}
+
+.vendor-table tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+.vendor-table button {
+  padding: 6px 10px;
+  margin-right: 5px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.vendor-table button:hover {
+  background-color: #1976d2;
+  color: white;
+}
