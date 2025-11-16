@@ -383,8 +383,8 @@ const ProfileMenu = () => {
           <button type="button" className="btn ghost" onClick={handleEditToggle}>
             {isEditing ? 'Cancel' : 'Edit'}
           </button>
-          <button type="button" className="btn danger" onClick={handleLogout}>
-            Logout
+          <button type="button" className="logout-button" onClick={handleLogout}>
+            Log Out
           </button>
         </div>
       </div>
