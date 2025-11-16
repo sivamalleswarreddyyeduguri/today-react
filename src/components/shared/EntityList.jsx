@@ -6,7 +6,7 @@ import '../../styles/shared/EntityList.css';
 import CharacteristicsList from '../MaterialInspectionCharacteristics/CharacteristicsList';
 import InspectionActualsList from '../InspectionActuals/InspectionActualsList';
 import axiosInstance from './axiosInstance';
-import { FaEye, FaDownload} from 'react-icons/fa';
+import { FaEye, FaDownload } from 'react-icons/fa';
 const EntityList = ({
   title,
   fetchUrl,
@@ -36,7 +36,7 @@ const EntityList = ({
   const [lotIdForDetails, setLotIdForDetails] = useState(null);
 
 
-  
+
   const [showGraph, setShowGraph] = useState(false);
   const [activeLotId, setActiveLotId] = useState(null);
 
@@ -136,26 +136,26 @@ const EntityList = ({
   }, [currentPage]);
 
 
-    // ✅ Download PDF logic
-  const handleDownloadLotReport = async (lotId) => { 
-  try {
-    const response = await axiosInstance.get(
-      `http://localhost:8020/api/v1/inspection/lot/${lotId}/report/pdf`,
-      { responseType: 'blob' } // Important for binary data
-    );
+  // ✅ Download PDF logic
+  const handleDownloadLotReport = async (lotId) => {
+    try {
+      const response = await axiosInstance.get(
+        `http://localhost:8020/api/v1/inspection/lot/${lotId}/report/pdf`,
+        { responseType: 'blob' } // Important for binary data
+      );
 
-    const url = window.URL.createObjectURL(new Blob([response.data], { type: 'application/pdf' }));
-    const link = document.createElement('a');
-    link.href = url;
-    link.setAttribute('download', `InspectionReport_${lotId}.pdf`);
-    document.body.appendChild(link);
-    link.click();
-    link.remove();
-  } catch (error) {
-    toast.error('Failed to download PDF report');
-    console.error(error);
-  }
-};
+      const url = window.URL.createObjectURL(new Blob([response.data], { type: 'application/pdf' }));
+      const link = document.createElement('a');
+      link.href = url;
+      link.setAttribute('download', `InspectionReport_${lotId}.pdf`);
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+    } catch (error) {
+      toast.error('Failed to download PDF report');
+      console.error(error);
+    }
+  };
 
   // Delete
   const handleDelete = async (id) => {
@@ -345,8 +345,9 @@ const EntityList = ({
         <p>Loading {entityNamePlural}...</p>
       ) : (
         <>
-          <table className={`entity-table ${inline ? 'nested' : ''}`}>
-            <thead>
+        <div>
+          <table className={`entity-table ${inline ? 'nested' : ''}`}  style={{ width: '100%' }} >
+            <thead >
               <tr>
                 {columns.map((col) => (
                   <th key={col.key}>{col.label}</th>
@@ -358,7 +359,7 @@ const EntityList = ({
               </tr>
             </thead>
 
-            <tbody>
+            <tbody >
               {currentEntities.length === 0 ? (
                 <tr>
                   <td
@@ -385,7 +386,7 @@ const EntityList = ({
                   );
 
                   return (
-                    <React.Fragment key={rowKey}>
+                    <React.Fragment key={rowKey} className="d-flex justify-content-between">
                       <tr
                         className={isMat && !inline ? 'clickable-row' : ''}
                         onClick={
@@ -397,22 +398,24 @@ const EntityList = ({
                           <td key={col.key}>{renderCell(col, entity)}</td>
                         ))}
 
-                 
-                          {showStatusColumn && entityName !== 'Inspection Actual' && (
-                              <td>{entity?.status ? 'Active' : 'Inactive'}</td>
-                            )}
+
+                        {showStatusColumn && entityName !== 'Inspection Actual' && (
+                          <td>{entity?.status ? 'Active' : 'Inactive'}</td>
+                        )}
 
 
                         <td>
                           {/* 🔎 Search Results: show View Actuals + Upload PDF actions */}
                           {title === 'Search Results' ? (
                             <>
-                         <button title="View Details" onClick={() => setLotIdForDetails(id)} className="icon-button">
-                                 <FaEye />
-                              </button>
-                               <button title="Download Report" onClick={() => handleDownloadLotReport(id)} className="icon-button">
-                                 <FaDownload />
-                              </button>
+                              <div className='d-flex'>
+                                <button title="View Details" onClick={() => setLotIdForDetails(id)} className="icon-button">
+                                  <FaEye />
+                                </button>
+                                <button title="Download Report" onClick={() => handleDownloadLotReport(id)} className="icon-button">
+                                  <FaDownload />
+                                </button>
+                              </div>
 
                             </>
                           ) : isLot ? (
@@ -439,18 +442,18 @@ const EntityList = ({
                                 Add Inspection Actuals
                               </button>
 
-                              
-<button
-      type="button"
-      onClick={(e) => {
-        e.stopPropagation();
-        navigate(`/materials/graph/${id}`);
-      }}
-      className="px-3 py-1.5 rounded bg-blue-600 hover:bg-blue-700 text-white text-sm inline-flex items-center gap-2"
-      title="View Graph"
-    >
-      <FaEye /> View Graph
-    </button>
+
+                              <button
+                                type="button"
+                                onClick={(e) => {
+                                  e.stopPropagation();
+                                  navigate(`/materials/graph/${id}`);
+                                }}
+                                className="px-3 py-1.5 rounded bg-blue-600 hover:bg-blue-700 text-white text-sm inline-flex items-center gap-2"
+                                title="View Graph"
+                              >
+                                <FaEye /> View Graph
+                              </button>
 
 
                             </>
@@ -512,22 +515,25 @@ const EntityList = ({
                                   )}
                                 </>
                               ) : (
-                                
-                                <button
-                                  type="button"
-                                  onClick={(e) => {
-                                    e.stopPropagation();
-                                    handleReactivate(entity);
-                                  }}
-                                  disabled={!reactivateUrl}
-                                  title={
-                                    reactivateUrl
-                                      ? 'Reactivate this entity'
-                                      : 'Reactivate URL not configured'
-                                  }
-                                >
-                                  Reactivate
-                                </button>
+                                <>{title === 'Search Results' && lotIdForDetails ? (
+                                  <button
+                                    type="button"
+                                    onClick={(e) => {
+                                      e.stopPropagation();
+                                      handleReactivate(entity);
+                                    }}
+                                    disabled={!reactivateUrl}
+                                    title={
+                                      reactivateUrl
+                                        ? 'Reactivate this entity'
+                                        : 'Reactivate URL not configured'
+                                    }
+                                  >
+                                    Reactivate
+                                  </button>
+                                ) : (
+                                  <></>
+                                )}</>
 
 
                               )}
@@ -603,7 +609,7 @@ const EntityList = ({
               )}
             </tbody>
           </table>
-
+          </div>
           {!inline && totalPages > 1 && (
             <div className="pagination">
               <button
